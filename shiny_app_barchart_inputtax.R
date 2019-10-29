@@ -67,37 +67,8 @@ ui <- fluidPage(
 
 server <- function(input, output) {
     ###making dataframe out of two files: .taxonomy and .shared files
-    output$tmp_df <- reactive({ 
+    abundance_data <- reactive({ 
         
-        req(input$shared_file)
-        req(input$tax_file)
-        # 
-        sharedfile <- input$shared_file
-        taxfile <- input$tax_file
-        
-        phyloseq_import <- import_mothur(mothur_shared_file = sharedfile$datapath, mothur_constaxonomy_file = taxfile$datapath)
-        #             mothur_constaxonomy_file = "data/lava_tube_merged.good.unique.good.filter.unique.precluster.pick.opti_mcc.0.03.cons.taxonomy")
-        #makes an otu_table file and a tax_table file
-        ###################################################mothur_shared_file = input$shared_file, mothur_constaxonomy_file = input$tax_file
-        #MAKE DF
-        ##Convert otu_table into a dataframe + DON'T need to transpose
-        OTU1 = as(otu_table(phyloseq_import), "matrix")
-        # Coerce to data.frame
-        OTUdf = as.data.frame(OTU1)
-        #contains the number of each OTU in each sample (A-C)
-        class(OTUdf)
-        ##convert tax_table to dataframe
-        tax1 = as(tax_table(phyloseq_import), "matrix")
-        taxdf = as.data.frame(tax1)
-        
-        #########################################################
-        #MERGE DF: Now we have a tax and otu dataframes... need to merge them into a single dataframe to graph
-        taxdf
-    })
-    
-    
-    abundance_data <-eventReactive(input$upload, {
-        #
         sharedfile <- input$shared_file
         taxfile <- input$tax_file
         
