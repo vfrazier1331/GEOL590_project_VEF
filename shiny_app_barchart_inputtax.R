@@ -5,15 +5,10 @@
 # These bits get run before any of the rest of the code
 # Note: contrary to what I told you on Monday, the use of the global.R file is no longer recommended.
 # At present, I'm not sure why.
-
-# Slight edits by Warren
 library(shiny)
 library(tidyverse)
-
-# source("https://raw.githubusercontent.com/joey711/phyloseq/master/inst/scripts/installer.R",
-#        local = TRUE)
-
 library(phyloseq)
+library(plotly)
 options(shiny.maxRequestSize = 30*1024^2)
 
 
@@ -172,4 +167,3 @@ server <- function(input, output) {
 
 # Run the application 
 shinyApp(ui = ui, server = server)
-
